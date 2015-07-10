@@ -3,9 +3,8 @@
     height : 40px;
     display : none;
     position : fixed;
-    left : 50%;
-    margin-left : 610px;
-    bottom : 30px; 
+    right: 30px;
+    bottom : 50px; 
     background : url(http://img.mukewang.com/535e0dc100010e9c00400080.jpg) no-repeat left top;
 }
 
