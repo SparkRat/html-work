@@ -4,7 +4,8 @@
     display : none;
     position : fixed;
     right: 30px;
-    bottom : 50px; 
+    bottom : 50px;
+    z-index: 5;
     background : url(http://img.mukewang.com/535e0dc100010e9c00400080.jpg) no-repeat left top;
 }
 
