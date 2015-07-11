@@ -7,51 +7,76 @@
 <style type="text/css">
     *{margin: 0;padding: 0;}
     #main{position: relative;}
-    .box{padding: 15px 0 0 15px;float:left; }
+    .box{padding: 15px 0 0 15px;float:left;display:none;}
     .pic{padding: 10px;border: 1px solid #ccc;border-radius: 5px;box-shadow: 0 0 5px #ccc;}
     .pic img{width: 350px;height: auto;}
 </style>
 <script>
     window.onload=function() {
-        init();
+        var addNum = 0;
+        randomPlace($('#main>div'));
         waterfall();
         var dataInt = {'data':[{"src":'31297.jpg'},{"src":'27265.jpg'},{"src":'100452.jpg'},{"src":'24014.jpg'},{"src":"189766.jpg"},{"src":"139622.jpg"},{"src":"65671.jpg"},{"src":"69596.jpg"},{"src":"133972.jpg"}]};
-    };
-    function init () {
-        var $boxs = $('#main>div');
-        $boxs.each(function(index,value) {
-            $(value).css({
-                position:'absolute',
-                left: '30%',
-                top: Math.floor($(window).height()/5),
-                'margin-top': Math.floor(-($boxs.height()/2)+(Math.random()*200+150)),
-                'margin-left': Math.floor(-($boxs.width()/2)+(Math.random()*200+200))
-            })
+        $(window).on('scroll', function(){
+            if(checkScrollSlide()){
+                var picArr = [];
+                $.each(dataInt.data, function(key, value) {
+                    var oBox=$('<div>').addClass('box').appendTo($('#main'));
+                    var oPic=$('<div>').addClass('pic').appendTo($(oBox));
+                    $('<img>').attr('src','http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-'+$(value).attr('src')).appendTo($(oPic));
+                    picArr.push(oBox);
+                })
+                ++addNum;
+                randomPlace(picArr);
+                animatePic(picArr,0,$(picArr[0]).outerWidth());
+            }
         })
+        function randomPlace(boxs) {
+            for(var i=0; i<boxs.length; ++i){
+                $(boxs[i]).css({
+                    position:'absolute',
+                    display:'block',
+                    left: '30%',
+                    top: Math.floor($(window).height()/5),
+                    'margin-top': Math.floor(-($('#main>div').height()/2)+(Math.random()*400)+$(window).height()*addNum),
+                    'margin-left': Math.floor(-($('#main>div').width()/2)+(Math.random()*200+200))
+                })
+            }
+        }
+    };
+    function checkScrollSlide () {
+        var $lastBox=$('#main>div').last();
+        var lastBoxDis=$lastBox.offset().top+$lastBox.outerHeight();
+        var scrollTop=$(window).scrollTop();
+        var documentH=$(window).height();
+        return (lastBoxDis==scrollTop+documentH)?true:false;
     }
-    
+    var hArr = [];
+
     function waterfall () {
         var $boxs=$('#main>div');
         var w=$boxs.eq(0).outerWidth();
         var cols=Math.floor($(window).width()/w);
         $('#main').width(cols*w).css('margin','0 auto');
-        var hArr = [];
-        for (var i=0; i<cols; ++i){
-            hArr.push(0);
+        if(hArr.length == 0){
+            for(var i=0; i<cols; ++i){
+                hArr.push(0);
+            }
         }
         animatePic($boxs,0,w);
-        function animatePic($boxs,index,width) {
-            var minH = Math.min.apply(null, hArr);
-            var minHIndex = $.inArray(minH, hArr);
-            $boxs.eq(index).animate({
-                left: minHIndex*width,
-                margin: 0,
-                top:hArr[minHIndex]},
-                300, function() {
-                   hArr[minHIndex]+=$boxs.eq(index).outerHeight();
-                   animatePic($boxs,index+1,width);
-            });
-        }
+    }
+
+    function animatePic(boxs,index,width) {
+        var minH = Math.min.apply(null, hArr);
+        var minHIndex = $.inArray(minH, hArr);
+        $(boxs[index]).animate({
+            left: minHIndex*width,
+            margin: 0,
+            top:hArr[minHIndex]},
+            300, function() {
+               hArr[minHIndex]+=$(boxs[index]).outerHeight();
+               animatePic(boxs,index+1,width);
+        });
     }
 </script>
 </head>
