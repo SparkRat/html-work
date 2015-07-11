@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-<title>散开效果的瀑布流</title>
+<title>爆炸效果的瀑布流</title>
 <style type="text/css">
     *{margin: 0;padding: 0;}
     #main{position: relative;}
@@ -13,12 +13,12 @@
 </style>
 <script>
     window.onload=function() {
-        var addNum = -2;
+        var addNum = 0;
         randomshow($('#main>div'));
         waterfall();
         var dataInt = {'data':[{"src":'31297.jpg'},{"src":'27265.jpg'},{"src":'100452.jpg'},{"src":'24014.jpg'},{"src":"189766.jpg"},{"src":"139622.jpg"},{"src":"65671.jpg"},{"src":"69596.jpg"},{"src":"133972.jpg"}]};
         $(window).on('scroll', function(){
-            if(checkScrollSlide()){    
+            if(addNum<3&&checkScrollSlide()){    
                 var picArr = [];
                 $.each(dataInt.data, function(key, value) {
                     var oBox=$('<div>').addClass('box').appendTo($('#main'));
@@ -36,10 +36,10 @@
                             left: minHIndex*$(picArr[0]).outerWidth(),
                             margin: 0,
                             top:hArr[minHIndex]},
-                            1000);
+                            50);
                         hArr[minHIndex]+=$(picArr[i]).outerHeight();
                     }
-                },300);
+                },1000);
                 
             }
         });
@@ -82,10 +82,10 @@
                     left: minHIndex*w,
                     margin: 0,
                     top:hArr[minHIndex]},
-                    1000)
+                    50)
                 hArr[minHIndex]+=$boxs.eq(index).outerHeight();
             })
-        }, 300);
+        }, 1000);
     }
 </script>
 </head>
