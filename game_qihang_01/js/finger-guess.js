@@ -43,7 +43,9 @@ function compare (usrChoice) {
 	if(randomX == usrChoice){
 		logs.innerText = "平局了!你和电脑出的都是:"+getName(usrChoice);
 		++tieNum;
-	}else if( (randomX<usrChoice)||(randomX==2 && usrChoice==0)){
+	}else if((randomX==2 && usrChoice==0)
+		||(randomX==1 && usrChoice==2)
+		||(randomX==0 && usrChoice==1)){
 		logs.innerText = "你赢了!你出的是:"+getName(usrChoice)+", 而电脑出的是:"+getName(randomX);
 		++winNum;
 	}else{
