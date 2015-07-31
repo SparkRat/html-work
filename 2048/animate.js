@@ -9,7 +9,6 @@ var showNumber = function(x,y,number) {
 
 	//fix 1024 bug
 	if( number>=1024 ){
-		console.log('fuck!');
 		numberCell.css("font-size","20px");
 	}
 	numberCell.text( number );
