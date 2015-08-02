@@ -44,23 +44,11 @@ var update = function() {
 					'left': getPosLeft(i,j)+cellSideLength/2
 				});
 			} else {
-				theNumberCell.css({
-					'width': cellSideLength,
-					'height': cellSideLength,
-					'top': getPosTop(i,j),
-					'left': getPosLeft(i,j),
-					"background-color": getNumberBackgroundColor(board[i][j]),
-					color: getNumberColor(board[i][j]),
-				});
-				theNumberCell.text(board[i][j]);
+				showNumber(i,j,board[i][j]);
 			}
 			isMerged[i][j] = 0;
 		}
 	}
-	$('.number-cell').css({
-		'line-height': cellSideLength+'px',
-		'font-size': 0.6*cellSideLength+'px'
-	})	
 };
 
 //  在一个随机的位置上放一个随机数

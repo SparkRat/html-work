@@ -3,22 +3,19 @@ var showNumber = function(x,y,number) {
 	var numberCell = $("#number-cell-"+x+"-"+y);
 
 	numberCell.css({
-		"background-color": getNumberBackgroundColor( number ),
-		"color": getNumberColor( number ),
+		'width': cellSideLength,
+		'height': cellSideLength,
+		'top': getPosTop(x,y),
+		'left': getPosLeft(x,y),
+		'line-height': cellSideLength+'px',
+		'font-size': 0.6*cellSideLength+'px',
+		'background-color': getNumberBackgroundColor(number),
+		'color': getNumberColor(number)
 	});
-
-	//fix 1024 bug
-	if( number>=1024 ){
-		numberCell.css("font-size","20px");
+	if(number>=1024){
+		numberCell.css("font-size", "40px");
 	}
 	numberCell.text( number );
-
-	numberCell.animate({
-		width: cellSideLength,
-		height: cellSideLength,
-		top: getPosTop(x,y),
-		left: getPosLeft(x,y)
-	},50);
 };
 
 // 移动数字的动画效果
